@@ -44,6 +44,7 @@ dependencies {
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
+    implementation(libs.recyclerview.v7)
 
     // Room
     implementation(libs.room.runtime)

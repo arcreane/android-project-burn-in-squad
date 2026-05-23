@@ -28,6 +28,7 @@ gson = "2.11.0"
 
 # Fragment
 fragment = "1.8.5"
+recyclerviewV7 = "28.0.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -63,6 +64,7 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 # Fragment
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
+recyclerview-v7 = { group = "com.android.support", name = "recyclerview-v7", version.ref = "recyclerviewV7" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
