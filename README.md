@@ -32,5 +32,4 @@ SnapQuest is an Android-based photo scavenger hunt application where users compl
 ### 4. Manifest & Rules
 - **Permissions & Rules**: Configured `AndroidManifest.xml` and defined `data_extraction_rules.xml` to manage backups and app behavior.
 
----
-*Documentation updated based on recent activity.*
+
