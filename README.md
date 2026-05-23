@@ -22,6 +22,8 @@ SnapQuest is an Android-based photo scavenger hunt application where users compl
     - Point values for gamification.
 
 ### 3. UI and Resource Development
+- **Material 3 Theming**: Implemented a comprehensive Material 3 theme (`Theme.SnapQuest`) with support for both **Light** and **Dark (Night)** modes.
+- **Custom Color Palette**: Defined a core color system in `colors.xml` including primary, secondary, surface, and error colors consistent with Material Design 3.
 - **App Visuals**: Set up launcher icons (`ic_launcher_background.xml` and `ic_launcher_foreground.xml`).
 - **Navigation & Menus**: Created `collection_menu.xml` to support filtering quests by status (All, Completed, Pending).
 - **Strings & Localization**: Defined core application strings and prepared the app for localization.
