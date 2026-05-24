@@ -34,7 +34,8 @@ public class CameraActivity extends AppCompatActivity {
                 if (isGranted) {
                     startCamera();
                 } else {
-                    Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Camera permission is required", Toast.LENGTH_LONG).show();
+                    finish();
                 }
             });
 
