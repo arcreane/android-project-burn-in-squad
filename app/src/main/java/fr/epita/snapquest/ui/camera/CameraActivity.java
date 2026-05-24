@@ -1,7 +1,6 @@
 package fr.epita.snapquest.ui.camera;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -23,6 +22,7 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 
 import fr.epita.snapquest.R;
+import fr.epita.snapquest.util.PermissionUtils;
 import fr.epita.snapquest.validation.ExifFreshnessRule;
 import fr.epita.snapquest.validation.PhotoValidator;
 import fr.epita.snapquest.validation.SizeRule;
@@ -52,8 +52,7 @@ public class CameraActivity extends AppCompatActivity {
 
         btnCapture.setOnClickListener(v -> takePhoto());
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                == PackageManager.PERMISSION_GRANTED) {
+        if (PermissionUtils.hasCameraPermission(this)) {
             startCamera();
         } else {
             requestPermissionLauncher.launch(Manifest.permission.CAMERA);
@@ -108,14 +107,14 @@ public class CameraActivity extends AppCompatActivity {
                 ContextCompat.getMainExecutor(this),
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
-
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-
                         PhotoValidator validator = new PhotoValidator();
                         validator.addRule(new SizeRule());
                         validator.addRule(new ExifFreshnessRule());
+
                         boolean valid = validator.validate(photoFile);
                         String photoPath = photoFile.getAbsolutePath();
+
                         if (valid) {
                             Toast.makeText(
                                     CameraActivity.this,
