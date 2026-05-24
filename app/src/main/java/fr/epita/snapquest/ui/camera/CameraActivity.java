@@ -115,10 +115,11 @@ public class CameraActivity extends AppCompatActivity {
                         validator.addRule(new SizeRule());
                         validator.addRule(new ExifFreshnessRule());
                         boolean valid = validator.validate(photoFile);
+                        String photoPath = photoFile.getAbsolutePath();
                         if (valid) {
                             Toast.makeText(
                                     CameraActivity.this,
-                                    "Photo valid: " + photoFile.getName(),
+                                    "Photo valid: " + photoPath,
                                     Toast.LENGTH_SHORT
                             ).show();
                         } else {
