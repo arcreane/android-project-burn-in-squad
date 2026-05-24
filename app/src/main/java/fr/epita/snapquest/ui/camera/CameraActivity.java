@@ -23,6 +23,9 @@ import com.google.common.util.concurrent.ListenableFuture;
 import java.io.File;
 
 import fr.epita.snapquest.R;
+import fr.epita.snapquest.validation.ExifFreshnessRule;
+import fr.epita.snapquest.validation.PhotoValidator;
+import fr.epita.snapquest.validation.SizeRule;
 
 public class CameraActivity extends AppCompatActivity {
 
@@ -105,12 +108,26 @@ public class CameraActivity extends AppCompatActivity {
                 ContextCompat.getMainExecutor(this),
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
+
                     public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        Toast.makeText(
-                                CameraActivity.this,
-                                "Photo saved: " + photoFile.getName(),
-                                Toast.LENGTH_SHORT
-                        ).show();
+
+                        PhotoValidator validator = new PhotoValidator();
+                        validator.addRule(new SizeRule());
+                        validator.addRule(new ExifFreshnessRule());
+                        boolean valid = validator.validate(photoFile);
+                        if (valid) {
+                            Toast.makeText(
+                                    CameraActivity.this,
+                                    "Photo valid: " + photoFile.getName(),
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        } else {
+                            Toast.makeText(
+                                    CameraActivity.this,
+                                    "Photo validation failed",
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
                     }
 
                     @Override
