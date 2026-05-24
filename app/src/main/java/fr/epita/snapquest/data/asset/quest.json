@@ -1,0 +1,19 @@
+{
+  "quests": [
+    { "id": 1, "title": "A red door", "category": "ARCHITECTURE", "hint": "Older neighborhoods often have them" },
+    { "id": 2, "title": "A bicycle leaning on a wall", "category": "STREET", "hint": "Look for parking racks" },
+    { "id": 3, "title": "A bakery sign", "category": "STREET", "hint": "Boulangerie windows count" },
+    { "id": 4, "title": "Your shoes from above", "category": "PERSONAL", "hint": "Top-down angle" },
+    { "id": 5, "title": "A coffee cup", "category": "PERSONAL", "hint": "Cafe table or your own desk" },
+    { "id": 6, "title": "A yellow vehicle", "category": "STREET", "hint": "Taxis, post vans, anything" },
+    { "id": 7, "title": "A building with more than 5 windows visible", "category": "ARCHITECTURE", "hint": "Count carefully" },
+    { "id": 8, "title": "A reflection of the sky", "category": "NATURE", "hint": "Puddles, windows, mirrors" },
+    { "id": 9, "title": "A street sign in French", "category": "STREET", "hint": "Rue, Avenue, Place" },
+    { "id": 10, "title": "A plant growing where it should not", "category": "NATURE", "hint": "Pavement cracks, walls" },
+    { "id": 11, "title": "A stairwell", "category": "ARCHITECTURE", "hint": "Indoor or outdoor" },
+    { "id": 12, "title": "A graffiti tag", "category": "STREET", "hint": "Walls, doors, signs" },
+    { "id": 13, "title": "A handwritten note in public", "category": "STREET", "hint": "Lost flyers, market signs" },
+    { "id": 14, "title": "Your hand holding a leaf", "category": "NATURE", "hint": "Any leaf will do" },
+    { "id": 15, "title": "A clock that is not on your phone", "category": "ARCHITECTURE", "hint": "Church towers, station clocks" }
+  ]
+}

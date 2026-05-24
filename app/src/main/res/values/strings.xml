@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">SnapQuest</string>
+    
+        <!-- Network (Makuo) -->
+        <string name="offline_badge">Offline</string>
+
+        <!-- Camera (Person 1) -->
+        <string name="capture">Capture</string>
+        <string name="camera_permission_denied">Camera permission denied</string>
+
+        <!-- Collection (Person 3) -->
+        <string name="collection_title">My Quests</string>
+        <string name="status_icon">Status icon</string>
+        <string name="filter_all">All quests</string>
+        <string name="filter_todo">To do</string>
+        <string name="filter_done">Done</string>
+        <string name="filter_skipped">Skipped</string>
+
+        <!-- UI / Hub / Review / Settings (Person 5) -->
+        <string name="start_hunting">Start hunting</string>
+        <string name="view_collection">View collection</string>
+        <string name="settings_title">Settings</string>
+        <string name="night_mode">Night mode</string>
+        <string name="captured_photo">Captured photo</string>
+        <string name="accept">Accept</string>
+        <string name="retake">Retake</string>
+        <string name="share_caption">Found this for SnapQuest!</string>
+        <string name="share_chooser_title">Share photo</string>
 </resources>
