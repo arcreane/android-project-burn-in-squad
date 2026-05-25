@@ -19,7 +19,7 @@ import fr.epita.snapquest.BuildConfig;
 public class GeminiValidationService {
 
     private static final String ENDPOINT =
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=";
+            "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=";
 
     public String validate(String photoPath, String questTitle, String questHint) throws Exception {
         // Decode and scale down bitmap to reduce payload size
