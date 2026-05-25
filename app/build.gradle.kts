@@ -33,35 +33,18 @@ android {
 }
 
 dependencies {
+    implementation(libs.activity.ktx)
+    implementation(libs.animated.vector.drawable)
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.activity.ktx)
-    implementation(libs.constraintlayout)
-    implementation(libs.fragment)
 
-    // CameraX
     implementation(libs.camera.core)
     implementation(libs.camera.camera2)
     implementation(libs.camera.lifecycle)
     implementation(libs.camera.view)
+    implementation(libs.recyclerview.v7)
 
-    // Room
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
-
-    // ExifInterface
     implementation(libs.exifinterface)
-
-    // Lifecycle (LiveData, ViewModel)
-    implementation(libs.lifecycle.livedata)
-    implementation(libs.lifecycle.viewmodel)
-
-    // Glide
-    implementation(libs.glide)
-    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
-
-    // Gson
-    implementation(libs.gson)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
