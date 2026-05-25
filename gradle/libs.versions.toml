@@ -1,5 +1,6 @@
+# Cleaned version catalog
 [versions]
-agp = "8.13.2"
+agp = "9.2.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
@@ -21,7 +22,8 @@ gson = "2.11.0"
 
 # Fragment
 fragment = "1.8.5"
-recyclerviewV7 = "28.0.0"
+recyclerview = "1.3.2"
+room = "2.6.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -29,9 +31,8 @@ ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitV
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-activity-ktx = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+activity-ktx = { group = "androidx.activity", name = "activity", version.ref = "activityKtx" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-
 
 camera-core = { module = "androidx.camera:camera-core", version.ref = "camerax" }
 camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "camerax" }
@@ -40,15 +41,9 @@ camera-view = { module = "androidx.camera:camera-view", version.ref = "camerax" 
 exifinterface = { module = "androidx.exifinterface:exifinterface", version.ref = "exifinterface" }
 animated-vector-drawable = { group = "androidx.vectordrawable", name = "vectordrawable-animated", version = "1.2.0" }
 
-[plugins]
-android-application = { id = "com.android.application", version.ref = "agp" }
-
 # Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-
-# ExifInterface
-exifinterface = { group = "androidx.exifinterface", name = "exifinterface", version.ref = "exifinterface" }
 
 # Lifecycle
 lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
@@ -62,7 +57,7 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 
 # Fragment
 fragment = { group = "androidx.fragment", name = "fragment", version.ref = "fragment" }
-recyclerview-v7 = { group = "com.android.support", name = "recyclerview-v7", version.ref = "recyclerviewV7" }
+recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
