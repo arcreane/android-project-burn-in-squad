@@ -26,7 +26,10 @@ SnapQuest is an Android-based photo scavenger hunt application where users compl
 - **Custom Color Palette**: Defined a core color system in `colors.xml` including primary, secondary, surface, and error colors consistent with Material Design 3.
 - **App Visuals**: Set up launcher icons (`ic_launcher_background.xml` and `ic_launcher_foreground.xml`).
 - **Navigation & Menus**: Created `collection_menu.xml` to support filtering quests by status (All, Completed, Pending).
-- **Strings & Localization**: Defined core application strings and prepared the app for localization.
+- **Comprehensive String Resources**: Expanded `strings.xml` to include UI labels for core features:
+    - **Navigation**: Start Hunting, View Collection, Settings.
+    - **Actions**: Capture Photo, Accept, Retake, Share.
+    - **Status**: Completed, Pending, No Connection.
 - **Layouts**: Initialized `MainActivity` with basic Edge-to-Edge support.
 
 ### 4. Manifest & Rules
