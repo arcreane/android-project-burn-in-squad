@@ -4,6 +4,7 @@ import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -32,6 +33,8 @@ public class CameraActivity extends AppCompatActivity {
 
     private PreviewView previewView;
     private Button btnCapture;
+    private TextView questTitleView;
+    private TextView questHintView;
     private ImageCapture imageCapture;
     private CameraViewModel viewModel;
 
@@ -53,9 +56,16 @@ public class CameraActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
         previewView = findViewById(R.id.previewView);
         btnCapture = findViewById(R.id.btnCapture);
+        questTitleView = findViewById(R.id.quest_title_overlay);
+        questHintView = findViewById(R.id.quest_hint_overlay);
 
         int questId = getIntent().getIntExtra("questId", 1);
+        String questTitle = getIntent().getStringExtra("questTitle");
+        String questHint = getIntent().getStringExtra("questHint");
         viewModel.setCurrentQuestId(questId);
+
+        if (questTitle != null) questTitleView.setText(questTitle);
+        if (questHint != null) questHintView.setText("Hint: " + questHint);
 
         btnCapture.setOnClickListener(v -> takePhoto());
 
@@ -68,6 +78,8 @@ public class CameraActivity extends AppCompatActivity {
                         getSupportFragmentManager().popBackStack();
                         previewView.setVisibility(View.VISIBLE);
                         btnCapture.setVisibility(View.VISIBLE);
+                        questTitleView.setVisibility(View.VISIBLE);
+                        questHintView.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -114,6 +126,8 @@ public class CameraActivity extends AppCompatActivity {
                         viewModel.setPhotoPath(photoPath);
                         previewView.setVisibility(View.GONE);
                         btnCapture.setVisibility(View.GONE);
+                        questTitleView.setVisibility(View.GONE);
+                        questHintView.setVisibility(View.GONE);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, PhotoReviewFragment.newInstance(
                                         photoPath, viewModel.getCurrentQuestId(), PhotoReviewFragment.MODE_REVIEW))

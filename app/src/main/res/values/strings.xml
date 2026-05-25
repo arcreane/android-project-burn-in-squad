@@ -23,6 +23,7 @@
     <string name="sort_by_status">Sort by Status</string>
     <string name="btn_close">Close</string>
     <string name="quest_completed">Completed</string>
+    <string name="dark_mode_desc">Switch between light and dark theme</string>
     <string name="offline_badge">Offline</string>
     <string name="capture">Capture</string>
     <string name="camera_permission_denied">Camera permission denied</string>

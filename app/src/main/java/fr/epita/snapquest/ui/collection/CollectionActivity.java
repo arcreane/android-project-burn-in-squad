@@ -1,5 +1,6 @@
 package fr.epita.snapquest.ui.collection;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import fr.epita.snapquest.data.db.QuestEntity;
 import fr.epita.snapquest.data.repo.NetworkStateRepository;
 import fr.epita.snapquest.data.repo.QuestRepository;
 import fr.epita.snapquest.model.QuestStatus;
+import fr.epita.snapquest.ui.camera.CameraActivity;
 import fr.epita.snapquest.ui.review.PhotoReviewFragment;
 
 public class CollectionActivity extends AppCompatActivity {
@@ -49,19 +51,27 @@ public class CollectionActivity extends AppCompatActivity {
 
         adapter = new QuestListAdapter(allQuests, quest -> {
             if (quest.completed) {
+                // View saved photo
                 PhotoEntity photo = repository.getPhotoForQuest(quest.id);
                 if (photo != null) {
                     showPhotoFragment(photo.filePath, quest.id);
                 }
+            } else {
+                // Open camera to complete this quest
+                Intent intent = new Intent(this, CameraActivity.class);
+                intent.putExtra("questId", quest.id);
+                intent.putExtra("questTitle", quest.title);
+                intent.putExtra("questHint", quest.hint);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(adapter);
 
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Collection");
+            getSupportActionBar().setTitle(getString(R.string.collection_title));
         }
 
-        NetworkStateRepository.getInstance().getNetworkAvailable().observe(this, isConnected ->
+        NetworkStateRepository.get().networkAvailable().observe(this, isConnected ->
                 networkBadge.setVisibility(isConnected ? View.GONE : View.VISIBLE));
 
         getSupportFragmentManager().setFragmentResultListener(

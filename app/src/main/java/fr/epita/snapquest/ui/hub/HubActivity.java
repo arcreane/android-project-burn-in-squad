@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,11 +40,11 @@ public class HubActivity extends AppCompatActivity {
         Button viewCollectionBtn = findViewById(R.id.btn_view_collection);
         Button settingsBtn = findViewById(R.id.btn_settings);
 
-        startHuntingBtn.setOnClickListener(v -> startActivity(new Intent(this, CameraActivity.class)));
+        startHuntingBtn.setOnClickListener(v -> startNextPendingQuest());
         viewCollectionBtn.setOnClickListener(v -> startActivity(new Intent(this, CollectionActivity.class)));
         settingsBtn.setOnClickListener(v -> startActivity(new Intent(this, SettingsActivity.class)));
 
-        NetworkStateRepository.getInstance().getNetworkAvailable().observe(this, isConnected ->
+        NetworkStateRepository.get().networkAvailable().observe(this, isConnected ->
                 networkBadge.setVisibility(isConnected ? View.GONE : View.VISIBLE));
     }
 
@@ -53,14 +54,34 @@ public class HubActivity extends AppCompatActivity {
         updateScore();
     }
 
+    private void startNextPendingQuest() {
+        List<QuestEntity> quests = repository.getAllQuests();
+        QuestEntity next = null;
+        for (QuestEntity q : quests) {
+            if (!q.completed) {
+                next = q;
+                break;
+            }
+        }
+        if (next == null) {
+            Toast.makeText(this, "All quests completed!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, CameraActivity.class);
+        intent.putExtra("questId", next.id);
+        intent.putExtra("questTitle", next.title);
+        intent.putExtra("questHint", next.hint);
+        startActivity(intent);
+    }
+
     private void updateScore() {
         List<QuestEntity> quests = repository.getAllQuests();
         int completed = 0;
         int totalPoints = 0;
-        for (QuestEntity quest : quests) {
-            if (quest.completed) {
+        for (QuestEntity q : quests) {
+            if (q.completed) {
                 completed++;
-                totalPoints += quest.points;
+                totalPoints += q.points;
             }
         }
         scoreTextView.setText(completed + "/" + quests.size() + " quests · " + totalPoints + " pts");
