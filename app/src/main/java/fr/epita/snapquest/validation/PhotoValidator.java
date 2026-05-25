@@ -1,25 +1,24 @@
 package fr.epita.snapquest.validation;
 
-import java.io.File;
+import fr.epita.snapquest.model.Photo;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PhotoValidator {
-
     private final List<ValidationRule> rules = new ArrayList<>();
 
-    public void addRule(ValidationRule rule) {
-        rules.add(rule);
+    public PhotoValidator() {
+        rules.add(new SizeRule());
+        rules.add(new ExifFreshnessRule());
     }
 
-    public boolean validate(File file) {
-
+    public ValidationResult validate(Photo photo) {
         for (ValidationRule rule : rules) {
-            if (!rule.validate(file)) {
-                return false;
+            ValidationResult result = rule.validate(photo);
+            if (!result.isValid()) {
+                return result;
             }
         }
-
-        return true;
+        return new ValidationResult(true, "✓ Photo is valid!");
     }
 }

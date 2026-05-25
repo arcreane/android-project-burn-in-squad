@@ -18,6 +18,11 @@
     <string name="filter_done">Done</string>
     <string name="filter_skipped">Skipped</string>
     <string name="no_connection">No Connection</string>
+    <string name="sort_by_points">Sort by Points</string>
+    <string name="sort_by_category">Sort by Category</string>
+    <string name="sort_by_status">Sort by Status</string>
+    <string name="btn_close">Close</string>
+    <string name="quest_completed">Completed</string>
     <string name="offline_badge">Offline</string>
     <string name="capture">Capture</string>
     <string name="camera_permission_denied">Camera permission denied</string>

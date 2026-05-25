@@ -2,6 +2,7 @@ package fr.epita.snapquest.ui.camera;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -16,21 +17,23 @@ import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.io.File;
 
 import fr.epita.snapquest.R;
+import fr.epita.snapquest.data.photo.PhotoStorage;
+import fr.epita.snapquest.ui.review.PhotoReviewFragment;
 import fr.epita.snapquest.util.PermissionUtils;
-import fr.epita.snapquest.validation.ExifFreshnessRule;
-import fr.epita.snapquest.validation.PhotoValidator;
-import fr.epita.snapquest.validation.SizeRule;
 
 public class CameraActivity extends AppCompatActivity {
 
     private PreviewView previewView;
+    private Button btnCapture;
     private ImageCapture imageCapture;
+    private CameraViewModel viewModel;
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -47,10 +50,26 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        viewModel = new ViewModelProvider(this).get(CameraViewModel.class);
         previewView = findViewById(R.id.previewView);
-        Button btnCapture = findViewById(R.id.btnCapture);
+        btnCapture = findViewById(R.id.btnCapture);
+
+        int questId = getIntent().getIntExtra("questId", 1);
+        viewModel.setCurrentQuestId(questId);
 
         btnCapture.setOnClickListener(v -> takePhoto());
+
+        getSupportFragmentManager().setFragmentResultListener(
+                PhotoReviewFragment.REQUEST_KEY, this, (requestKey, result) -> {
+                    String action = result.getString(PhotoReviewFragment.RESULT_ACTION);
+                    if (PhotoReviewFragment.ACTION_ACCEPTED.equals(action)) {
+                        finish();
+                    } else if (PhotoReviewFragment.ACTION_RETAKE.equals(action)) {
+                        getSupportFragmentManager().popBackStack();
+                        previewView.setVisibility(View.VISIBLE);
+                        btnCapture.setVisibility(View.VISIBLE);
+                    }
+                });
 
         if (PermissionUtils.hasCameraPermission(this)) {
             startCamera();
@@ -66,23 +85,12 @@ public class CameraActivity extends AppCompatActivity {
         cameraProviderFuture.addListener(() -> {
             try {
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
-
                 Preview preview = new Preview.Builder().build();
                 preview.setSurfaceProvider(previewView.getSurfaceProvider());
-
                 imageCapture = new ImageCapture.Builder().build();
-
                 cameraProvider.unbindAll();
-
-                cameraProvider.bindToLifecycle(
-                        this,
-                        CameraSelector.DEFAULT_BACK_CAMERA,
-                        preview,
-                        imageCapture
-                );
-
+                cameraProvider.bindToLifecycle(this, CameraSelector.DEFAULT_BACK_CAMERA, preview, imageCapture);
             } catch (Exception e) {
-                e.printStackTrace();
                 Toast.makeText(this, "Camera failed to start", Toast.LENGTH_SHORT).show();
             }
         }, ContextCompat.getMainExecutor(this));
@@ -94,51 +102,29 @@ public class CameraActivity extends AppCompatActivity {
             return;
         }
 
-        File photoFile = new File(
-                getExternalFilesDir(null),
-                System.currentTimeMillis() + ".jpg"
-        );
-
+        File photoFile = new File(PhotoStorage.getPicturesDir(this), System.currentTimeMillis() + ".jpg");
         ImageCapture.OutputFileOptions outputOptions =
                 new ImageCapture.OutputFileOptions.Builder(photoFile).build();
 
-        imageCapture.takePicture(
-                outputOptions,
-                ContextCompat.getMainExecutor(this),
+        imageCapture.takePicture(outputOptions, ContextCompat.getMainExecutor(this),
                 new ImageCapture.OnImageSavedCallback() {
                     @Override
-                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
-                        PhotoValidator validator = new PhotoValidator();
-                        validator.addRule(new SizeRule());
-                        validator.addRule(new ExifFreshnessRule());
-
-                        boolean valid = validator.validate(photoFile);
+                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults results) {
                         String photoPath = photoFile.getAbsolutePath();
-
-                        if (valid) {
-                            Toast.makeText(
-                                    CameraActivity.this,
-                                    "Photo valid: " + photoPath,
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                        } else {
-                            Toast.makeText(
-                                    CameraActivity.this,
-                                    "Photo validation failed",
-                                    Toast.LENGTH_SHORT
-                            ).show();
-                        }
+                        viewModel.setPhotoPath(photoPath);
+                        previewView.setVisibility(View.GONE);
+                        btnCapture.setVisibility(View.GONE);
+                        getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.fragment_container, PhotoReviewFragment.newInstance(
+                                        photoPath, viewModel.getCurrentQuestId(), PhotoReviewFragment.MODE_REVIEW))
+                                .addToBackStack(null)
+                                .commit();
                     }
 
                     @Override
                     public void onError(@NonNull ImageCaptureException exception) {
-                        Toast.makeText(
-                                CameraActivity.this,
-                                "Photo capture failed",
-                                Toast.LENGTH_SHORT
-                        ).show();
+                        Toast.makeText(CameraActivity.this, "Photo capture failed", Toast.LENGTH_SHORT).show();
                     }
-                }
-        );
+                });
     }
 }
