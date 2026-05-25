@@ -34,11 +34,6 @@
             </intent-filter>
         </activity>
 
-        <!-- Person 5 -->
-        <activity
-            android:name=".ui.review.PhotoReviewActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.setting.SettingsActivity"
             android:exported="false"

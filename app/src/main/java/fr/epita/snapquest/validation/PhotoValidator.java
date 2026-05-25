@@ -7,9 +7,9 @@ import java.util.List;
 public class PhotoValidator {
     private final List<ValidationRule> rules = new ArrayList<>();
 
-    public PhotoValidator() {
+    public PhotoValidator(String questTitle, String questHint) {
         rules.add(new SizeRule());
-        rules.add(new ExifFreshnessRule());
+        rules.add(new AiContentRule(questTitle, questHint));
     }
 
     public ValidationResult validate(Photo photo) {
@@ -19,6 +19,6 @@ public class PhotoValidator {
                 return result;
             }
         }
-        return new ValidationResult(true, "✓ Photo is valid!");
+        return new ValidationResult(true, "✓ Photo accepted!");
     }
 }

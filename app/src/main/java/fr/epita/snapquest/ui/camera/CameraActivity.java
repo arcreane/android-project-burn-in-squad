@@ -37,6 +37,8 @@ public class CameraActivity extends AppCompatActivity {
     private TextView questHintView;
     private ImageCapture imageCapture;
     private CameraViewModel viewModel;
+    private String questTitle;
+    private String questHint;
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
@@ -60,8 +62,8 @@ public class CameraActivity extends AppCompatActivity {
         questHintView = findViewById(R.id.quest_hint_overlay);
 
         int questId = getIntent().getIntExtra("questId", 1);
-        String questTitle = getIntent().getStringExtra("questTitle");
-        String questHint = getIntent().getStringExtra("questHint");
+        questTitle = getIntent().getStringExtra("questTitle");
+        questHint = getIntent().getStringExtra("questHint");
         viewModel.setCurrentQuestId(questId);
 
         if (questTitle != null) questTitleView.setText(questTitle);
@@ -130,7 +132,8 @@ public class CameraActivity extends AppCompatActivity {
                         questHintView.setVisibility(View.GONE);
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, PhotoReviewFragment.newInstance(
-                                        photoPath, viewModel.getCurrentQuestId(), PhotoReviewFragment.MODE_REVIEW))
+                                        photoPath, viewModel.getCurrentQuestId(),
+                                        PhotoReviewFragment.MODE_REVIEW, questTitle, questHint))
                                 .addToBackStack(null)
                                 .commit();
                     }
