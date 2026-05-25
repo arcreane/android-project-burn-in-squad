@@ -8,12 +8,46 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- Quest info overlay at the top -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="#CC000000"
+        android:layout_gravity="top">
+
+        <TextView
+            android:id="@+id/quest_title_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/quest_hint_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#CCFFFFFF"
+            android:layout_marginTop="4dp" />
+
+    </LinearLayout>
+
+    <!-- Capture button at the bottom -->
     <Button
         android:id="@+id/btnCapture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Capture"
+        android:text="@string/capture_photo"
         android:layout_gravity="bottom|center"
         android:layout_margin="32dp" />
+
+    <!-- Fragment container (shown after capture, covers full screen) -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>

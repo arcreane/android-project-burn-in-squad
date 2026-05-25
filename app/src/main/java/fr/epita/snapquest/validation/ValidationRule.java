@@ -1,7 +1,7 @@
 package fr.epita.snapquest.validation;
 
-import java.io.File;
+import fr.epita.snapquest.model.Photo;
 
 public interface ValidationRule {
-    boolean validate(File file);
+    ValidationResult validate(Photo photo);
 }

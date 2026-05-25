@@ -17,5 +17,19 @@
         android:title="@string/filter_pending"
         app:showAsAction="never" />
 
-</menu>
+    <item
+        android:id="@+id/sort_by_points"
+        android:title="@string/sort_by_points"
+        app:showAsAction="never" />
 
+    <item
+        android:id="@+id/sort_by_category"
+        android:title="@string/sort_by_category"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_by_status"
+        android:title="@string/sort_by_status"
+        app:showAsAction="never" />
+
+</menu>

@@ -6,10 +6,21 @@ import androidx.lifecycle.ViewModel;
 
 public class CameraViewModel extends ViewModel {
     private final MutableLiveData<String> lastPhotoPath = new MutableLiveData<>();
-    public void setLastPhotoPath(String path) {
+    private int currentQuestId;
+
+    public void setPhotoPath(String path) {
         lastPhotoPath.setValue(path);
     }
+
     public LiveData<String> getLastPhotoPath() {
         return lastPhotoPath;
+    }
+
+    public void setCurrentQuestId(int id) {
+        this.currentQuestId = id;
+    }
+
+    public int getCurrentQuestId() {
+        return currentQuestId;
     }
 }
