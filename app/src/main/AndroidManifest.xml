@@ -5,7 +5,11 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".SnapQuestApp"
@@ -18,18 +22,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapQuest">
 
-        <activity android:name=".ui.camera.CameraActivity"/>
-
+        <!-- Person 5 — HubActivity is the LAUNCHER (first screen) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.hub.HubActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
+        <!-- Person 5 -->
+        <activity android:name=".ui.review.PhotoReviewActivity" />
+        <activity android:name=".ui.setting.SettingsActivity" />
+
+        <!-- Person 1 -->
+        <activity android:name=".ui.camera.CameraActivity" />
+
+        <!-- Person 3 -->
+        <activity android:name=".ui.collection.CollectionActivity" />
 
     </application>
 
