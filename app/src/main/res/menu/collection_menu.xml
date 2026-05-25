@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter_all"
+        android:title="@string/filter_all"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/filter_completed"
+        android:title="@string/filter_completed"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/filter_pending"
+        android:title="@string/filter_pending"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_by_points"
+        android:title="@string/sort_by_points"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_by_category"
+        android:title="@string/sort_by_category"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_by_status"
+        android:title="@string/sort_by_status"
+        app:showAsAction="never" />
+
+</menu>
