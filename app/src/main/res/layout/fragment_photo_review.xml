@@ -14,6 +14,28 @@
         android:scaleType="fitCenter"
         android:contentDescription="@string/photo_preview" />
 
+    <LinearLayout
+        android:id="@+id/validation_loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/validating_ai"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/fragment_validation_result"
         android:layout_width="wrap_content"
@@ -22,7 +44,8 @@
         android:textStyle="bold"
         android:textColor="@color/primary"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/review_buttons"
