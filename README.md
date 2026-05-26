@@ -97,6 +97,28 @@ app/src/main/java/fr/epita/snapquest/
 
 ---
 
+## . Limitations and future work
+
+The current submission implements the single-player hunt experience: the 
+quest pack ships bundled in the APK, photos save to a local database, 
+and the player races against an implicit clock by virtue of the 30-second 
+EXIF freshness rule.
+
+The multiplayer features that motivated the design — quest pack sharing 
+between friends, shared leaderboards, an authoritative game timer — are 
+not in this submission. However, the architecture supports them:
+
+- Network state is already detected and exposed as LiveData via 
+  ConnectivityReceiver and NetworkStateRepository
+- The Offline badge is wired to disable network-dependent actions when 
+  added
+- The Room database schema can extend to store opponent scores and pack 
+  metadata without restructuring
+- The Strategy-pattern validator (PhotoValidator with composable rules) 
+  could add new rules like geo-bounds (must be within X meters of a 
+  starting point) without touching existing code
+
+
 ## Tech Stack
 
 - **Language**: Java
